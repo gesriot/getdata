@@ -1,0 +1,13 @@
+[package]
+name = "getdata"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+arboard = "3.7.0"
+eframe = { version = "0.37", features = ["persistence"] }
+image = { version = "0.25", default-features = false, features = ["bmp", "jpeg", "tiff", "png", "gif"] }
+rfd = "0.17.2"
+roxmltree = "0.21.2"
+serde = { version = "1.0.229", features = ["derive"] }
+zip = { version = "3", default-features = false, features = ["deflate"] }
