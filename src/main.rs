@@ -20,38 +20,10 @@ mod ui;
 mod view;
 mod xlsx;
 
-/// Window icon: a small chart with digitized points.
+/// Dock and window icon. `scripts/package-macos.sh` writes this from `assets/icon.png`.
 fn app_icon() -> eframe::egui::IconData {
-    let n = 32usize;
-    let mut rgba = vec![0u8; n * n * 4];
-    let mut put = |x: usize, y: usize, c: [u8; 4]| {
-        if x < n && y < n {
-            rgba[(y * n + x) * 4..(y * n + x) * 4 + 4].copy_from_slice(&c);
-        }
-    };
-    for y in 2..30 {
-        for x in 2..30 {
-            put(x, y, [255, 255, 255, 255]);
-        }
-    }
-    for k in 2..30 {
-        put(4, k, [40, 40, 40, 255]);
-        put(k, 27, [40, 40, 40, 255]);
-    }
-    for x in 5..29 {
-        let t = (x - 5) as f32 / 23.0;
-        let y = (25.0 - 20.0 * t.powf(0.6)) as usize;
-        put(x, y, [40, 90, 200, 255]);
-        put(x, y + 1, [40, 90, 200, 255]);
-        if (x - 5) % 5 == 0 {
-            for dy in 0..3 {
-                for dx in 0..3 {
-                    put(x + dx - 1, y + dy - 1, [230, 50, 60, 255]);
-                }
-            }
-        }
-    }
-    eframe::egui::IconData { rgba, width: n as u32, height: n as u32 }
+    eframe::icon_data::from_png_bytes(include_bytes!("../macos/icon-runtime.png"))
+        .expect("bundled app icon must be a valid PNG")
 }
 
 fn main() -> eframe::Result {
